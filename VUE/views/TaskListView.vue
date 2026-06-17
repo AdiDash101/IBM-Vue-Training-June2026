@@ -28,17 +28,23 @@ function handleDelete(id) {
   <div class="task-list-view">
     <h1>My Tasks</h1>
 
-    <TaskCard
-      v-for="task in tasks"
-      :key="task.id"
-      :task="task"
-      @complete="handleComplete"
-      @delete="handleDelete"
-    >
-      <template #meta>
-        🗓️ Due: {{ task.dueDate }}
-      </template>
-    </TaskCard>
+    <template v-if="tasks.length > 0">
+      <TaskCard
+        v-for="task in tasks"
+        :key="task.id"
+        :task="task"
+        @complete="handleComplete"
+        @delete="handleDelete"
+      >
+        <template #meta>
+          🗓️ Due: {{ task.dueDate }}
+        </template>
+      </TaskCard>
+    </template>
+
+    <div v-else class="empty-state">
+      <p>Oh no tasks here!</p>
+    </div>
     
   </div>
 </template>
@@ -53,5 +59,17 @@ function handleDelete(id) {
 h1 { 
   color: #1B2A4A; 
   margin-bottom: 24px; 
+}
+
+/* Styled empty state to match your clean theme */
+.empty-state {
+  text-align: center;
+  padding: 32px;
+  background: #f9fafb;
+  border: 2px dashed #e5e7eb;
+  border-radius: 10px;
+  color: #9ca3af;
+  font-size: 16px;
+  font-weight: 500;
 }
 </style>
